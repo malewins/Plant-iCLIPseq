@@ -36,3 +36,6 @@ do
   $BGTOBW $BG $TAIR ../$OUTBW/${BG%.bedgraph}.bw
 done
 
+cd ../$OUTBW/
+for BW in *rep?.-.bw; do mv $BW ${BW%-.bw}minus.bw; done
+for BW in *rep?.+.bw; do mv $BW ${BW%+.bw}plus.bw; done
