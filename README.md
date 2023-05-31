@@ -1,3 +1,4 @@
+
 # README
 
 ## *Arabidopsis* iCLIP-seq workflow
@@ -39,9 +40,11 @@ For Deskop PCs we recommend the Long Term Support (LTS) version of Ubuntu 22.04.
 * umi_tools - 1.1.4 (pip3)
 * bioawk - via conda
 * R - 4.1.2 (apt)
-  + R-package: rtracklayer - 1.54.0 via Bioconductor
-  + R-package: BindingSiteFinder - 1.0.0 via Bioconductor
- 
+  + R-package: rtracklayer - 1.57.0 via Bioconductor
+  + R-package: BindingSiteFinder - 2.0.0 via Bioconductor
+  + R-package: GenomicFeatures - 1.49.7 via Bioconductor
+
+TODO: how to install BSF 2.0.0 
 
 ## Installation Guide:
 
@@ -134,7 +137,7 @@ R is installed via APT as well:
 
 ```
 sudo apt install r-base
-sudo apt libcurl4-openssl-dev libfontconfig1-dev
+sudo apt libcurl4-openssl-dev libfontconfig1-dev libssl-dev
 
 ```
 
@@ -153,14 +156,18 @@ R
 
 > BiocManager::install("BindingSiteFinder")
 >> update all [a]
+
+> BiocManager::install("GenomicFeatures")
+
 ``` 
 
 ## Workflow outline:
 
-Download of workflow-zip and unpack into user Home Folder `` ~/ `` 
-
+To access the workflow code, download the repository from github and copy the whole **workflow** folder to your home:
 ```
-gunzip AtGRP7-iCLIP.zip
+cd ~
+git clone https://github.com/malewins/Plant-iCLIPseq.git
+cp -r Plant-iCLIPseq/workflow AtGRP7-iCLIP
 cd AtGRP7-iCLIP/
 ```
 
@@ -181,6 +188,7 @@ The prepared workflow-folder should look as followed:
 06_binding_sites/
 06_define_bindingsites.R
 06_define_bindingsites.sh
+sources/
 
 ```
 
@@ -190,7 +198,7 @@ find . -type f | grep .sh | xargs chmod u+x
 ```
 
 #### 00 download of resources
-At the start of the workflow the required gene annotation and reference genome need to be downloaded and saved in the corresponding folders (``annotation/`` and ``reference/``). As a sample dataset we provide unprocessed reads from AtGRP7 iCLIP (SRR24391474) which can be downloaded by executing the follwing script or from SRA alternatively:
+At the start of the workflow the required gene annotation and reference genome need to be downloaded and saved in the corresponding folders (``annotation/`` and ``reference/``). As a sample dataset we provide unprocessed reads from AtGRP7 iCLIP (SRR24391474) which can be downloaded by executing the follwing script or alternatively via SRA Selector ():
 
 ```
 ./00_download_resources.sh
@@ -359,3 +367,4 @@ The processing of the provided sample files took 3 hours on a DELL Latitude 3520
 
 ## License:
 MIT
+
