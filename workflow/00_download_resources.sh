@@ -6,7 +6,6 @@ mkdir -p annotation
 
 wget -P reference/ https://www.arabidopsis.org/download_files/Genes/TAIR10_genome_release/TAIR10_chromosome_files/TAIR10_chr_all.fas.gz
 wget -P annotation/ https://ics.hutton.ac.uk/atRTD/RTD3/atRTD3_TS_21Feb22_transfix.gtf
-wget -P annotation/ https://ics.hutton.ac.uk/atRTD/RTD3/atRTD3_07082020.bed
 wget -P annotation/ https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/gff3/arabidopsis_thaliana/Arabidopsis_thaliana.TAIR10.56.gff3.gz
 
 # unpack GFF3 file
