@@ -11,7 +11,6 @@ wget -P annotation/ https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-56/g
 # unpack GFF3 file
 gunzip annotation/*
 
-
 # prepare reference files
 gunzip reference/*
 mv reference/TAIR10_chr_all.fas reference/TAIR10_chr_all.fa
@@ -22,7 +21,7 @@ cut -f1,2 reference/TAIR10_chr_all.fa.fai > reference/TAIR10_sizes.dat
 bioawk -c fastx '{gsub(/[YWMKSRD]/,N,$seq);print ">"$name"\n"$seq}' reference/TAIR10_chr_all.fa > reference/TAIR10_chr_all_canonical.fa
 
 
-# download sample fastq
+# download sample fastq, alternatively run SRA toolkit with accession SRR24391474 or download reads via the SRA selector
 mkdir -p 00_raw_fastq
 wget -P 00_raw_fastq/ https://sra-download.be-md.ncbi.nlm.nih.gov/vast/sra01/SRZ/024391/SRR24391474/AtGRP7-GFP.fastq.gz
 
