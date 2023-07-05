@@ -21,7 +21,7 @@ do
   --sjdbGTFfile $ANN \
   --alignIntronMin 11 \
   --alignIntronMax 28000 \
-  --outFilterMismatchNoverReadLmax 0.04 \
+  --outFilterMismatchNoverLmax 0.04 \
   --outFilterMismatchNmax 999 \
   --outFilterMultimapNmax 1 \
   --outSJfilterReads Unique \
