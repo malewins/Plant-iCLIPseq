@@ -39,12 +39,8 @@ For Deskop PCs we recommend the Long Term Support (LTS) version of Ubuntu 22.04.
 * PureCLIP - 1.3.1 (binary download)
 * umi_tools - 1.1.4 (pip3)
 * bioawk - via conda
-* R - 4.1.2 (apt)
-  + R-package: rtracklayer - 1.57.0 via Bioconductor
-  + R-package: BindingSiteFinder - 2.0.0 via Bioconductor
-  + R-package: GenomicFeatures - 1.49.7 via Bioconductor
-
-TODO: how to install BSF 2.0.0 
+* R - 4.3.0 (download)
+  + R-package: BindingSiteFinder - 1.7.2 via Bioconductor
 
 ## Installation Guide:
 
@@ -133,31 +129,38 @@ conda install -c bioconda bioawk
 #### Installing R
 
 
-R is installed via APT as well:
+R is installed via source download and compilation but requires several linux packages from atp:
 
 ```
-sudo apt install r-base
-sudo apt libcurl4-openssl-dev libfontconfig1-dev libssl-dev
-
+sudo apt install libxml2-dev libcurl4-openssl-dev libfontconfig1-dev libssl-dev libx11-dev xorg-dev openjdk-19-jdk
 ```
 
+Download R 4.3.0 sources and install to local folder:
+
+```
+cd ~/sources/
+wget https://cran.r-project.org/src/base/R-4/R-4.3.0.tar.gz
+tar xvf R-4.3.0.tar.gz
+cd R-4.3.0
+./configure
+make
+make install
+```
+After compilation the necessary binaries for ``R`` and ``Rscript`` reside in the ``~/sources/R-4.3.0/bin`` folder.
 
 ##### start R and install packages
 
 Start a new R session 
 
 ```
-R
+~/sources/R-4.3.0/bin/R
 
 > install.packages("BiocManager")
 
-> BiocManager::install("rtracklayer")
->> update all [a]
+> BiocManager::install(version='devel')
 
 > BiocManager::install("BindingSiteFinder")
 >> update all [a]
-
-> BiocManager::install("GenomicFeatures")
 
 ``` 
 
@@ -198,11 +201,13 @@ find . -type f | grep .sh | xargs chmod u+x
 ```
 
 #### 00 download of resources
-At the start of the workflow the required gene annotation and reference genome need to be downloaded and saved in the corresponding folders (``annotation/`` and ``reference/``). As a sample dataset we provide unprocessed reads from AtGRP7 iCLIP (SRR24391474) which can be downloaded by executing the follwing script or alternatively via SRA Selector ():
+At the start of the workflow the required gene annotation and reference genome need to be downloaded and saved in the corresponding folders (``annotation/`` and ``reference/``). As a sample dataset we provide unprocessed reads from AtGRP7 iCLIP (SRR24391474) which can also be downloaded by executing the follwing script or alternatively via SRA Selector or the SRA-toolkit (https://github.com/ncbi/sra-tools):
 
 ```
 ./00_download_resources.sh
 ```
+For the sample workflow the read file needs to be present in the ``00_raw_fastq`` under the name ``AtGRP7-GFP.fastq.gz``. 
+
 After the download has finished the integrity of the sample ``FASTQ`` file is assessed by:
 
 ```
@@ -334,17 +339,13 @@ cd 01_deduped_BAMs
 #### 06 binding site definition
 
 
-
 ```
 ./06_define_bindingsites.sh
 ```
 
-parameters for binding site definition: 
+The parameters for binding site definition are fixed in the script and need to be adapted according to the protein in focus.
+For a complete functional description of the ``BindingSiteFinder`` package visit https://www.bioconductor.org/packages/devel/bioc/html/BindingSiteFinder.html. 
 
-* peaks with lowerst 10% of PureCLIP scores removed
-* binding site width of 5 nt
-* at least two crosslinked sites
-* reproducibility cutoff 30% and 2 out of 3 replicates
 
 
 
