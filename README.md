@@ -1,21 +1,24 @@
 
 # README
 
-## *Arabidopsis* iCLIP-seq workflow
+## *Plant* iCLIP-seq workflow
 
-This workflow describes complete step-by step instructions to obtain genome-wide binding sites from sequenced *Arabidopsis thaliana* iCLIP reads.
+This workflow describes complete step-by step instructions to obtain reproducibility tested, genome-wide binding sites from sequenced *Arabidopsis thaliana* iCLIP reads.
 
 ## Overview:
 
 ### System requirements:
 
-Depending on the internet connection the complete setup and installation of required software requires less than one hour. 
+Depending on the internet connection the complete setup and installation of required software requires about one hour on a current Desktop PC. 
 
 #### Minimal setup
 
 * 4 CPUs
 * 8GB RAM
 * 250 GB disk space
+
+*<!> Note: Larger plant genomes require more RAM and disk space. The minimal setup was tested soley for Arabidopsis genomes. <!>*
+
 
 #### Recommended setup
 
@@ -46,14 +49,14 @@ For Deskop PCs we recommend the Long Term Support (LTS) version of Ubuntu 22.04.
 
 ### Operating System 
 
-After the installation of Ubuntu 22.04.2, login with your ID and update all packages by running the following commands in the shell:
+After the installation of ``Ubuntu 22.04.2``, login with your ID and update all packages by running the following commands in the shell:
 
 ```
 sudo apt update
 sudo apt upgrade
 ```
 
-### Software
+### Bioinformatics software
 
 The packages **FastQC**, **samtools**, **bedtools** and **Flexbar** are installed using the Advanced Packaging Tool (APT) which is available from start.
 
@@ -118,7 +121,7 @@ conda update conda
 # confirm with [yes]
 ```
 
-#### bioawk install
+#### bioawk
 
 ```
 conda install -c bioconda bioawk
@@ -129,7 +132,7 @@ conda install -c bioconda bioawk
 #### Installing R
 
 
-R is installed via source download and compilation but requires several linux packages from atp:
+R is installed via source download and compilation but requires several linux packages from ATP:
 
 ```
 sudo apt install libxml2-dev libcurl4-openssl-dev libfontconfig1-dev libssl-dev libx11-dev xorg-dev openjdk-19-jdk
@@ -195,7 +198,7 @@ sources/
 
 ```
 
-For the bash scripts (.sh files) to be executable the user permissions need to be changed. This is done using the chmod (change mode) command:
+For the bash scripts (.sh files) to be executable the user permissions need to be modified. This is done using the chmod (change mode) command:
 ```
 find . -type f | grep .sh | xargs chmod u+x
 ```
@@ -208,7 +211,7 @@ At the start of the workflow the required gene annotation and reference genome n
 ```
 For the sample workflow the read file needs to be present in the ``00_raw_fastq`` under the name ``AtGRP7-GFP.fastq.gz``. 
 
-After the download has finished the integrity of the sample ``FASTQ`` file is assessed by:
+After the download has finished the integrity of the zipped sample ``FASTQ`` file is assessed by:
 
 ```
 cd 00_raw_fastq
